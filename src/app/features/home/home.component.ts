@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CardComponent } from "../../shared/components/ui/card/card.component";
 import { Card } from '../../shared/models/card';
+import { SectionHeaderComponent } from "../../shared/components/ui/section-header/section-header.component";
 
 
 @Component({
   selector: 'app-home',
-  imports: [CardComponent],
+  imports: [CardComponent, SectionHeaderComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

@@ -1,11 +1,16 @@
-<section id="home" class="py-10">
-  <div class="grid grid-cols-12 gap-6" >   
-   
+<section id="home">
+  <section-header>
+          الرئيسية
+  </section-header>
+
+
+  <div class="grid grid-cols-12 gap-6" >
+
     <div class="col-span-12 lg:col-span-8">
       <div class="grid grid-cols-12 gap-4">
 
         @for (card of cards; track $index) {
-          <div class="col-span-12 md:col-span-6 lg:col-span-4">
+          <div class="col-span-12  md:col-span-6 lg:col-span-4 cursor-pointer " >
             <app-card>
               {{card.title}}
             </app-card>
@@ -14,10 +19,10 @@
       </div>
      </div>
 
-      <div class="col-span-12 lg:col-span-4">
+      <div class="col-span-12 lg:col-span-4 order-first lg:order-last">
 
       <div class="tourMap">
-        <img src="/images/TourMap.png" alt="خريطة جولة">
+        <img src="/images/TourMap.png" class="w-full object-fit" alt="خريطة جولة">
       </div>
     </div>
   </div>

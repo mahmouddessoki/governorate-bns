@@ -1,0 +1,21 @@
+<section id="info_note">
+  <div class="section-header">
+    <h2 class="text-[32px] font-bold mb-6 text-white dark:text-gray-200">
+      النوته المعلوماتية
+    </h2>
+  </div>
+
+
+   <div class="col-span-12 lg:col-span-8">
+      <div class="grid grid-cols-12 gap-4">
+
+        @for (card of noteCards(); track $index) {
+          <div class="col-span-12  md:col-span-6 lg:col-span-4 xl:col-span-3 cursor-pointer " >
+            <app-card>
+              {{card.title}}
+            </app-card>
+          </div>
+        }
+      </div>
+     </div>
+</section>
