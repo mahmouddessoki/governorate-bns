@@ -5,7 +5,6 @@ import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.comp
 import { LoginComponent } from './features/authentication/components/login/login.component';
 
 export const routes: Routes = [
-
   {
     path:'',
     component:UserLayoutComponent,
@@ -14,14 +13,17 @@ export const routes: Routes = [
       {path:'',redirectTo:'home',pathMatch:'full'}
     ]
   },
-  {
+   {
     path:'',
     component:AuthLayoutComponent,
     children:[
-      {path:'home',component:LoginComponent},
+      {path:'login',component:LoginComponent},
       {path:'',redirectTo:'login',pathMatch:'full'}
     ]
   }
+,
+  
+ 
 
 
 

@@ -1,1 +1,24 @@
-<p>home works!</p>
+<section id="home" class="py-10">
+  <div class="grid grid-cols-12 gap-6" >   
+   
+    <div class="col-span-12 lg:col-span-8">
+      <div class="grid grid-cols-12 gap-4">
+
+        @for (card of cards; track $index) {
+          <div class="col-span-12 md:col-span-6 lg:col-span-4">
+            <app-card>
+              {{card.title}}
+            </app-card>
+          </div>
+        }
+      </div>
+     </div>
+
+      <div class="col-span-12 lg:col-span-4">
+
+      <div class="tourMap">
+        <img src="/images/TourMap.png" alt="خريطة جولة">
+      </div>
+    </div>
+  </div>
+</section>
