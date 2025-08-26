@@ -9,7 +9,7 @@ export const routes: Routes = [
     path:'',
     component:UserLayoutComponent,
     children:[
-      {path:'home',component:HomeComponent},
+      {path:'home',component:HomeComponent,title:'Home'},
       {path:'',redirectTo:'home',pathMatch:'full'}
     ]
   },
@@ -17,7 +17,7 @@ export const routes: Routes = [
     path:'',
     component:AuthLayoutComponent,
     children:[
-      {path:'login',component:LoginComponent},
+      {path:'login',component:LoginComponent,title:'Login'},
       {path:'',redirectTo:'login',pathMatch:'full'}
     ]
   }
