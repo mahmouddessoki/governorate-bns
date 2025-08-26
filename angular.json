@@ -25,6 +25,11 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "public/scss"
+              ]
+            },
             "assets": [
               {
                 "glob": "**/*",
@@ -34,10 +39,12 @@
             "styles": [
               "./node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "./node_modules/flowbite/dist/flowbite.min.css",
+              "node_modules/bootstrap/scss/bootstrap.scss",
               "src/styles.scss"
             ],
             "scripts": [
-              "./node_modules/flowbite/dist/flowbite.min.js"
+              "./node_modules/flowbite/dist/flowbite.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ],
             "server": "src/main.server.ts",
             "prerender": true,
@@ -113,5 +120,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "18d4d6dd-b354-4ee4-9c45-9e3c506dcbbb"
   }
 }

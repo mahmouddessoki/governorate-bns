@@ -1,0 +1,63 @@
+﻿// :root {
+//   @each $color, $value in $colors {
+//     --#{$variable-prefix}#{$color}: #{$value};
+//   }
+
+//   --line-clamp: 3;
+// }
+
+body,
+.tooltip,
+.popover,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-family !important;
+}
+
+.rtl {
+  body,
+  .tooltip,
+  .popover,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: $font-family-ar !important;
+  }
+}
+
+body,
+.dl-filter .btn-group {
+  &::-webkit-scrollbar-track {
+    background-color: var(--dl-white);
+  }
+
+  &::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+    background-color: var(--dl-white);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--dl-default);
+    border-radius: 5px;
+  }
+}
+
+button,
+a {
+  transition: all 0.15s;
+  text-decoration: none !important;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

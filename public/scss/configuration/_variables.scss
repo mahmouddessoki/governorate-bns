@@ -1,0 +1,32 @@
+﻿// Prefix for :root CSS Variables
+$variable-prefix: dl- !default;
+$prefix: $variable-prefix !default;
+
+// Global Variables
+// Font Variables
+$font-family: "Poppins" !default;
+$font-family-ar: "Cairo" !default;
+$font-awesome: "Font Awesome 6 Pro" !default;
+
+// Gray Color Variables
+$white: #fff !default;
+$black: #000 !default;
+
+$default: #27272a !default;
+$secondary: #f59e0b !default;
+$transparent: transparent !default;
+// ----------------------------------------\\
+
+//dark
+
+// Image Variables
+// Global Variables
+
+// scss-docs-start colors-map
+$colors: (
+  "black": $black,
+  "white": $white,
+  "default": $default,
+  "transparent": $transparent,
+) !default;
+// scss-docs-end colors-map

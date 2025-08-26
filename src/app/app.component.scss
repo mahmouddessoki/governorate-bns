@@ -1,0 +1,12 @@
+@import "../../public/scss/configuration/_configuration";
+@import "../../public/scss/resources/components/_components";
+
+div {
+  color: $secondary;
+}
+
+body {
+  background-color: tomato;
+  height: 100dvh;
+  width: 100%;
+}

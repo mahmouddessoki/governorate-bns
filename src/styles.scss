@@ -1,10 +1,15 @@
+@import "../public/scss/configuration/_configuration";
+@import "../public/scss/resources/components/_components";
+
 @import "tailwindcss";
 @import "flowbite/src/themes/default";
 @plugin "flowbite/plugin";
 @source "../node_modules/flowbite";
 
+body {
+  background-color: tomato;
+}
 
 @theme {
   --font-primary: "Noto Naskh Arabic", serif;
 }
-
