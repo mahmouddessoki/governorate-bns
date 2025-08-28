@@ -1,0 +1,22 @@
+<div class="sidebar flex flex-items-center h-screen">
+  <nav class="nav my-auto h-[calc(100vh-20px)] w-3xs text-white p-4 rounded-lg">
+    <div class="space-x-2 mb-4">
+      <img src="/images/logo/logo.svg" alt="Logo" class="h-10 object-cover" />
+    </div>
+    <ul class="space-y-4 flex flex-col gap-2">
+      @for (item of items; track $index) {
+      <li>
+        <a
+          [routerLink]="item.router"
+          routerLinkActive="active rounded-[56px]"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="flex items-center gap-2"
+        >
+          <img class="pe-2 size-7" src="{{ item.img }}" alt="icon-smile" />
+          {{ item.title }}
+        </a>
+      </li>
+      }
+    </ul>
+  </nav>
+</div>
