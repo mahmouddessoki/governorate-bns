@@ -30,6 +30,9 @@ export class InformationNoteComponent {
     {title: 'البريد', router: '/'},
     {title: 'التموين', router: '/'},
     {title: 'الفصل الواحد', router: '/'},
+    {title: 'الفصل الواحد', router: '/'},
+    {title: 'الفصل الواحد', router: '/'},
+    {title: 'الفصل الواحد', router: '/'},
   ]
 )
 }
