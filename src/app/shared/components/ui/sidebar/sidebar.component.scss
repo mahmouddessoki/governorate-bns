@@ -1,0 +1,42 @@
+@import "../../public/scss/configuration/_configuration";
+@import "../../public/scss/resources/components/_components";
+
+.sidebar {
+  align-items: center;
+  .nav {
+    background-color: #27272a;
+    margin: 0px 6px 0px 0px;
+    ul {
+      li {
+        a {
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 100%;
+          img {
+            filter: invert(45%) sepia(6%) saturate(432%) hue-rotate(202deg)
+              brightness(96%) contrast(88%);
+          }
+        }
+        &:last-child {
+          align-self: flex-end;
+          a {
+            img {
+              order: 1;
+              filter: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.active {
+  @include activeLink();
+  img {
+    filter: invert(13%) sepia(43%) saturate(1639%) hue-rotate(350deg)
+      brightness(97%) contrast(102%) !important;
+  }
+}

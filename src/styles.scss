@@ -6,19 +6,22 @@
 @plugin "flowbite/plugin";
 @source "../node_modules/flowbite";
 
-
 @theme {
   --font-primary: "Noto Naskh Arabic", serif;
 }
 
-@layer components{
-  .card{
-    @apply text-center rounded-[10px] text-[24px] py-7 font-semibold text-white bg-[#27272A] dark:text-gray-200
+@layer components {
+  .card {
+    @apply text-center rounded-[10px] text-[24px] py-7 font-semibold text-white bg-[#27272A] dark:text-gray-200;
   }
   .card-responsive {
-    @apply col-span-12  md:col-span-6 lg:col-span-4 xl:col-span-3 cursor-pointer
+    @apply col-span-12  md:col-span-6 lg:col-span-4 xl:col-span-3 cursor-pointer;
   }
   .head {
-    @apply text-[32px] font-bold mb-6 text-white dark:text-gray-200
+    @apply text-[32px] font-bold mb-6 text-white dark:text-gray-200;
   }
+}
+
+body {
+  overflow: hidden !important;
 }

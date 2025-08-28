@@ -1,18 +1,15 @@
 <section id="sectors">
-  <section-header>
-          القطاعات
-  </section-header>
+  <section-header> القطاعات </section-header>
 
-   <div class="col-span-12 lg:col-span-8">
-      <div class="grid grid-cols-12 gap-4">
-
-        @for (card of sectorCards(); track $index) {
-          <div class="card-responsive" >
-            <app-card>
-              {{card.title}}
-            </app-card>
-          </div>
-        }
+  <div class="col-span-12 lg:col-span-8">
+    <div class="grid grid-cols-12 gap-4">
+      @for (card of sectorCards(); track $index) {
+      <div class="card-responsive">
+        <app-card>
+          {{ card.title }}
+        </app-card>
       </div>
-     </div>
+      }
+    </div>
+  </div>
 </section>
