@@ -1,5 +1,5 @@
-@import "../../public/scss/configuration/_configuration";
-@import "../../public/scss/resources/components/_components";
+@use "../../public/scss/configuration/configuration" as *;
+@use "../../public/scss/resources/components/components" as *;
 
 div {
   color: $secondary;

@@ -1,6 +1,5 @@
-﻿@import "./functions";
-@import "./fonts";
-@import "./variables";
-@import "./reboot";
+﻿@forward "./functions";
+@forward "./fonts";
+@forward "./variables";
 
-@import "./mixins";
+@forward "./mixins";

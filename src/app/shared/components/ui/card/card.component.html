@@ -1,3 +1,4 @@
-<div class="card" >
+<div [routerLink]="link()" (click)="activity()"
+  class="card shadow-md   border-gray-300 transition-all duration-500 ease-in-out hover:border-yellow-300 hover:shadow-[0_0_15px_3px_rgba(250,204,21,0.7)]">
   <ng-content></ng-content>
 </div>

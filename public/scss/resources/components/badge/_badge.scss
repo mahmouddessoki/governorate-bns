@@ -1,0 +1,16 @@
+.dl-badge {
+  background-color: #18181b;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  text-transform: capitalize;
+  border-radius: 72px;
+  padding: 2px 10px;
+
+  &.badge-warning {
+    color: #f59e0b;
+  }
+  &.badge-success {
+    color: #84cc16;
+  }
+}

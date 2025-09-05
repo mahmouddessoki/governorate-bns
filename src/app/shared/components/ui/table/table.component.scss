@@ -1,0 +1,42 @@
+@use "../../../../../../public/scss/configuration/configuration" as *;
+@use "../../../../../../public/scss/resources/components/components" as *;
+
+table {
+  background-color: #27272a !important;
+
+  text-transform: capitalize;
+  color: #fff;
+  width: 90%;
+  border-collapse: separate;
+  border-spacing: 24px 14px;
+  border-radius: 12px;
+  td {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    text-transform: capitalize;
+  }
+  thead {
+    tr {
+      th {
+        text-align: center;
+        color: #71717a;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 500;
+        text-transform: capitalize;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  table {
+    width: 100%;
+    th,
+    td {
+      font-size: 12px;
+    }
+  }
+}

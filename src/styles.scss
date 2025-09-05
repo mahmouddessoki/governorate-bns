@@ -1,5 +1,5 @@
-@import "../public/scss/configuration/_configuration";
-@import "../public/scss/resources/components/_components";
+@use "../public/scss/configuration/_configuration" as *;
+@use "../public/scss/resources/components/_components" as *;
 
 @import "tailwindcss";
 @import "flowbite/src/themes/default";
@@ -24,4 +24,10 @@
 
 body {
   overflow: hidden !important;
+}
+
+@media (max-width: 768px) {
+  body {
+    overflow: auto !important;
+  }
 }
