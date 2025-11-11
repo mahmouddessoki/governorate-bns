@@ -43,7 +43,7 @@ export const routes: Routes = [
     component: UserLayoutComponent,
     canActivate: [userGuard],
     children: [
-      { path: 'home', component: HomeComponent, title: 'الصفحة الرئيسية' },
+      { path: 'home', component: HomeComponent, title: ' الرئيسية' },
       {
         path: 'informative-note',
         component: InformationNoteComponent,
