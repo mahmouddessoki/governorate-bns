@@ -6,7 +6,7 @@ import { SectionComponent } from "../../shared/components/ui/section/section.com
 
 @Component({
   selector: 'app-governorates',
-  imports: [CardComponent, SectionHeaderComponent, SectionComponent],
+  imports: [SectionComponent],
   templateUrl: './governorates.component.html',
   styleUrl: './governorates.component.scss',
 })

@@ -8,7 +8,6 @@ import { Card } from '../../shared/models/card';
   imports: [CardComponent, SectionHeaderComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  styleUrl: './home.component.scss',
 })
 export class HomeComponent {
   cards: Card[] = [

@@ -37,13 +37,22 @@
   }
 }
 
-// body {
-//   overflow: hidden !important;
-// }
-body::-webkit-scrollbar-thumb {
-    background-color:#f59e0b ;
-    border-radius: 5px;
-  }
+body {
+  overflow-x: hidden !important;
+    &::-webkit-scrollbar-track {
+      background-color: var(--dl-white);
+    }
+
+    &::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+      background-color: var(--dl-white);
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color:#f59e0b;
+        border-radius: 5px;
+    }
+}
 
 
 
