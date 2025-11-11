@@ -1,5 +1,5 @@
-import { Component, effect, input } from '@angular/core';
-import { RouterLink, Router } from '@angular/router';
+import { Component, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -8,15 +8,6 @@ import { RouterLink, Router } from '@angular/router';
   styleUrl: './card.component.scss',
 })
 export class CardComponent {
-  link = input<string>('');
+  cardRoute = input<string>();
 
-  constructor(private router: Router) {
-    effect(() => {
-      console.log(this.link(), 'aaaa');
-    });
-  }
-
-  activity() {
-    this.router.navigate(['/activity'], { queryParams: { id: 3 } });
-  }
 }

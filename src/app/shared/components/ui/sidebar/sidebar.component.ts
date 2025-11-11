@@ -28,21 +28,22 @@ export class SidebarComponent {
     {
       title: 'المحافظة',
       router: '/data',
+
       img: '/images/icons/ticket.svg',
     },
     {
       title: 'المراكز',
-      router: '/',
+      router: '/centers',
       img: '/images/icons/ticket.svg',
     },
     {
       title: 'الوحدات المحليه',
-      router: '/',
+      router: '/local-units',
       img: '/images/icons/ticket.svg',
     },
     {
       title: 'القرى',
-      router: '/',
+      router: '/villages',
       img: '/images/icons/ticket.svg',
     },
     {

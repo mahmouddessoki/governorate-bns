@@ -1,3 +1,8 @@
 .card {
-  padding: 40px !important;
+  padding: 30px !important;
+  transition: all 0.3s;
+  &:hover {
+    background-color: #F68E75;
+    color: white;
+  }
 }

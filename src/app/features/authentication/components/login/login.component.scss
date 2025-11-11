@@ -1,3 +1,28 @@
 :host {
   flex-grow: 1;
 }
+
+.invalid-input {
+   background-color: #fef2f2;              /* bg-red-50 */
+  border-width: 1px;                      /* border */
+  border-style: solid;
+  border-color: #ef4444;                      /* text-red-900 */
+  &,&::placeholder {
+  color: #7f1d1d;                         /* text-red-900 */
+
+  }
+}
+.valid-input {
+   background-color: #f0fdf4;              /* bg-green-50 */
+  border-width: 1px;                      /* border */
+  border-style: solid;
+  border-color: #22c55e;                  /* border-green-500 */
+  color: #14532d;                         /* text-green-900 */
+
+}
+.input-group:has(.invalid-input) i {
+  color: #7f1d1d;
+}
+.input-group:has(.valid-input) i {
+  color: #22c55e;
+}

@@ -1,10 +1,10 @@
-@use "../public/scss/configuration/_configuration" as *;
-@use "../public/scss/resources/components/_components" as *;
-
-@import "tailwindcss";
-@import "flowbite/src/themes/default";
+@use "tailwindcss";
+@use "flowbite/src/themes/default";
+@use "../public/scss/configuration/_configuration";
+@use "../public/scss/resources/components/_components";
 @plugin "flowbite/plugin";
 @source "../node_modules/flowbite";
+
 
 @theme {
   --font-primary: "Noto Naskh Arabic", serif;
@@ -20,14 +20,39 @@
   .head {
     @apply text-[32px] font-bold mb-6 text-white dark:text-gray-200;
   }
+  .disabled-btn {
+    @apply cursor-not-allowed bg-gray-500
+  }
+  .app-btn {
+    @apply py-2 px-5 me-2 mb-2 text-lg font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-gray-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 w-full
+  }
+  .invalid-input {
+    @apply bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+  }
+  .valid-input {
+    @apply bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500
+  }
+  .app-input {
+    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
+  }
 }
 
 body {
-  overflow: hidden !important;
+  overflow-x: hidden !important;
+    &::-webkit-scrollbar-track {
+      background-color: var(--dl-white);
+    }
+
+    &::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+      background-color: var(--dl-white);
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color:#f59e0b;
+        border-radius: 5px;
+    }
 }
 
-@media (max-width: 768px) {
-  body {
-    overflow: auto !important;
-  }
-}
+
+

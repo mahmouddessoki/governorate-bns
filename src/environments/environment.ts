@@ -1,4 +1,4 @@
 export const environment = {
-    production: false,
-    apiUrl: 'https://governorates.al-arabiay.com/api',
+  production: true,
+  BASE_URL: 'https://governorates.al-arabiay.com/api',
 };
