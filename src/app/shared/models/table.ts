@@ -1,7 +1,9 @@
 export interface Table {
-  'last updated': string;
+
+  user_id: number,
+  user_name: string,
+  created_at: string,
+  device: string;
   status: string;
-  'customer name': string;
-  subject: string;
-  'ticket id': string;
+
 }

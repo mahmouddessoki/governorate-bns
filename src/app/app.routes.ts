@@ -7,6 +7,8 @@ import { LoginComponent } from './features/authentication/components/login/login
 import { HomeComponent } from './features/home/home.component';
 import { InformationNoteComponent } from './features/information-note/information-note.component';
 import { SectorsComponent } from './features/sectors/sectors.component';
+import { ActivityLogComponent } from './features/activity-log/activity-log.component';
+import { DisplayDataComponent } from './features/display-data/display-data.component';
 import { getSectorsResolver } from './features/sectors/resolver/get-sectors.resolver';
 import { LocalUnitsComponent } from './features/local-units/local-units.component';
 import { GovernoratesComponent } from './features/governorates/governorates.component';
@@ -49,6 +51,8 @@ export const routes: Routes = [
         component: InformationNoteComponent,
         title: 'النوتة التعريفية',
       },
+      { path: 'sectors', component: SectorsComponent, title: 'القطاعات' },
+      { path: 'data', component: DisplayDataComponent, title: 'رسوم بيانيه' },
       {
         path: 'sectors',
         component: SectorsComponent,
