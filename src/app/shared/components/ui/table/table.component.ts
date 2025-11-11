@@ -9,8 +9,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './table.component.scss',
 })
 export class TableComponent {
-  tableHead = input<[]>();
-  tableData = input<Table[]>();
+  tableHead = input<(keyof Table)[]>();
+  tableData = input<Table[]>([]);
 
   constructor() {
     effect(() => {

@@ -1,35 +1,44 @@
+@if(tableData().length > 0) {
 <div class="dl-card sm:ms-4">
-    <table class="table-fixed ">
-        <thead class="pb-5">
-            <tr>
-                @for (tHead of tableHead(); track $index) {
-                <th>
-                    <p class="mb-0">
-                        {{ tHead }}
-                    </p>
-                </th>
-                }
-            </tr>
-        </thead>
-        <tbody>
-            @for (row of tableData(); track $index) {
-            <tr class="mb-4">
-                @for (head of tableHead(); track $index) {
-                <td class="pb-4">
-                    @if (head === 'status') {
-                    <span class="dl-badge" [ngClass]="{
-              'badge-warning': row[head] === 'open',
-              'badge-success': row[head] === 'resolved'
-            }">
-                        {{ row[head] }}
-                    </span>
-                    } @else {
-                    <span>{{ row[head] }}</span>
-                    }
-                </td>
-                }
-            </tr>
-            }
-        </tbody>
-    </table>
+  <table class="table-fixed">
+    <thead class="pb-5">
+      <tr>
+        @for (tHead of tableHead(); track $index) {
+        <th>
+          <p class="mb-0">
+            {{ tHead }}
+          </p>
+        </th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of tableData(); track $index) {
+      <tr class="mb-4">
+        @for (head of tableHead(); track $index) {
+        <td class="pb-4">
+          @if (head === 'status') {
+          <span
+            class="dl-badge"
+            [ngClass]="{
+              'badge-warning': row[head] === 'offline',
+              'badge-success': row[head] === 'online'
+            }"
+          >
+            {{ row[head] }}
+          </span>
+          } @else {
+          <span>{{ row[head] }}</span>
+          }
+        </td>
+        }
+      </tr>
+      }
+    </tbody>
+  </table>
 </div>
+} @else {
+<div class="flex justify-center items-center h-48">
+  <p class="text-gray-500 lg:text-5xl sm:text-2xl">لا توجد بيانات لعرضها</p>
+</div>
+}

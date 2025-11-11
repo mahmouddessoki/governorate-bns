@@ -1,0 +1,8 @@
+.demo-chart {
+  height: 400px;
+}
+:host ::ng-deep [echarts] {
+  display: block;
+  height: 400px;
+  //   width: 100%;
+}
