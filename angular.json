@@ -20,15 +20,11 @@
             "outputPath": "dist/governorate",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "public/scss"
-              ]
+              "includePaths": ["public/scss"]
             },
             "assets": [
               {
@@ -41,9 +37,7 @@
               "./node_modules/flowbite/dist/flowbite.min.css",
               "src/styles.scss"
             ],
-            "scripts": [
-              "./node_modules/flowbite/dist/flowbite.min.js"
-            ],
+            "scripts": ["./node_modules/flowbite/dist/flowbite.min.js"],
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {
@@ -98,10 +92,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -110,9 +101,7 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         }
@@ -120,6 +109,10 @@
     }
   },
   "cli": {
-    "analytics": "18d4d6dd-b354-4ee4-9c45-9e3c506dcbbb"
+    "analytics": "18d4d6dd-b354-4ee4-9c45-9e3c506dcbbb",
+    "cache": {
+      "path": "C:/temp/angular-cache",
+      "enabled": true
+    }
   }
 }

@@ -6,6 +6,7 @@ import { LoginComponent } from './features/authentication/components/login/login
 import { InformationNoteComponent } from './features/information-note/information-note.component';
 import { SectorsComponent } from './features/sectors/sectors.component';
 import { ActivityLogComponent } from './features/activity-log/activity-log.component';
+import { DisplayDataComponent } from './features/display-data/display-data.component';
 
 export const routes: Routes = [
   {
@@ -19,6 +20,7 @@ export const routes: Routes = [
         title: 'النوتة التعريفية',
       },
       { path: 'sectors', component: SectorsComponent, title: 'القطاعات' },
+      { path: 'data', component: DisplayDataComponent, title: 'رسوم بيانيه' },
       {
         path: 'activity',
         component: ActivityLogComponent,

@@ -27,7 +27,7 @@ export class SidebarComponent {
     },
     {
       title: 'المحافظة',
-      router: '/',
+      router: '/data',
       img: '/images/icons/ticket.svg',
     },
     {
