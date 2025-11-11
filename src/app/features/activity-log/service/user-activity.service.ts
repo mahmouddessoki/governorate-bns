@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../../environments/environment.development';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 
@@ -7,7 +7,7 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class UserActivityService {
-  // private readonly apiUrl = environment.apiUrl;
+  private readonly apiUrl = environment.BASE_URL;
 
   constructor(private http: HttpClient) { }
 
@@ -19,7 +19,7 @@ export class UserActivityService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer 29|EBmJFZUrLEwwwBdBUjO2cHJNNQa0EEgOEdApr6kI506bd929`
     });
-    return this.http.get(`https://governorates.al-arabiay.com/api/user-activity/activities?`, { params, headers }).pipe(
+    return this.http.get(`${this.apiUrl}/user-activity/activities?`, { params, headers }).pipe(
       tap(response => {
         console.log('User activities fetched:', response);
       })
