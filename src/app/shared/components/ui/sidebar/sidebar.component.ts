@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -8,6 +8,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
+  @ViewChild('sidebar') sidebar!: ElementRef;
   items = [
     {
       title: ' الصفحة الرئيسية',
@@ -51,7 +52,7 @@ export class SidebarComponent {
     },
     {
       title: 'سجل النشاط',
-      router: '/',
+      router: '/activity',
       img: '/images/icons/settings.svg',
     },
     {
@@ -60,4 +61,17 @@ export class SidebarComponent {
       img: '/images/avatar.svg',
     },
   ];
+
+  isMenuOpen = false;
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenu() {
+    this.isMenuOpen = false;
+  }
+  toggleSidebar() {
+    this.sidebar.nativeElement.classList.toggle('show');
+  }
 }
