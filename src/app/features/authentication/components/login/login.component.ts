@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
   private storage = inject(StorageService);
   private router = inject(Router);
   loading = signal(false);
+  loginErr = false
   loginForm!: FormGroup;
   ngOnInit(): void {
     this._initForm();
@@ -45,6 +46,10 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['home']);
         }
       },
+      error:()=>{
+        this.loading.set(false)
+        this.loginErr = true
+      }
     });
   }
 }

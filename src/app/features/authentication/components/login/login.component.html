@@ -77,6 +77,12 @@
 
   </button>
 
+  @if(loading() == false && loginErr == true ) {
+    <p class="text-center text-red-400 mt-3">
+    خطأ في الاسم او كلمة المرور
+  </p>
+  }
+
   </form>
 
 
