@@ -1,36 +1,23 @@
-import { Component, signal, WritableSignal } from '@angular/core';
-import { Card } from '../../shared/models/card';
-import { CardComponent } from "../../shared/components/ui/card/card.component";
-import { SectionHeaderComponent } from "../../shared/components/ui/section-header/section-header.component";
+import {
+  Component,
+  computed,
+  input,
+  OnInit
+} from '@angular/core';
+import { SectionComponent } from "../../shared/components/ui/section/section.component";
+import { infoRes } from '../../shared/models/info';
 
 @Component({
   selector: 'app-sectors',
-  imports: [CardComponent, SectionHeaderComponent],
+  imports: [ SectionComponent],
   templateUrl: './sectors.component.html',
-  styleUrl: './sectors.component.scss'
+  styleUrl: './sectors.component.scss',
 })
-export class SectorsComponent {
- sectorCards : WritableSignal<Card[]>  = signal( [
-    {title: 'السكان ', router: '/'},
-    {title: 'الزراعة', router: '/'},
-    {title: 'التعليم', router: '/'},
-    {title: 'التعليم الفني', router: '/'},
-    {title: 'الثقافة', router: '/'},
-    {title: 'البريد', router: '/'},
-    {title: 'التموين', router: '/'},
-    {title: 'الفصل الواحد', router: '/'},
-    {title: 'السكان ', router: '/'},
-    {title: 'الزراعة', router: '/'},
-    {title: 'التعليم', router: '/'},
-    {title: 'التعليم الفني', router: '/'},
-    {title: 'الثقافة', router: '/'},
-    {title: 'البريد', router: '/'},
-    {title: 'التموين', router: '/'},
-    {title: 'الفصل الواحد', router: '/'},
-    {title: 'الثقافة', router: '/'},
-    {title: 'البريد', router: '/'},
-    {title: 'التموين', router: '/'},
-    {title: 'الفصل الواحد', router: '/'},
-  ]
-)
+export class SectorsComponent implements OnInit {
+  sectors = input.required<infoRes>();
+  mainSectors = computed(()=>this.sectors().data)
+
+  ngOnInit() {}
+
+
 }

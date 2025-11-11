@@ -6,12 +6,12 @@
 
   <div class="grid grid-cols-12 gap-6" >
 
-    <div class="col-span-12 lg:col-span-8">
+    <div class="col-span-12 xl:col-span-8">
       <div class="grid grid-cols-12 gap-4">
 
         @for (card of cards; track $index) {
-          <div class="col-span-12  md:col-span-6 lg:col-span-4 cursor-pointer " >
-            <app-card>
+          <div  class="col-span-12  md:col-span-6 lg:col-span-4 cursor-pointer " >
+            <app-card [cardRoute]="card.router">
               {{card.title}}
             </app-card>
           </div>
@@ -19,11 +19,12 @@
       </div>
      </div>
 
-      <div class="col-span-12 lg:col-span-4 order-first lg:order-last">
+      <div class="col-span-12 xl:col-span-4">
 
-      <div class="tourMap">
-        <img src="/images/TourMap.png" class="w-full object-fit" alt="خريطة جولة">
+      <div class="tourMap ">
+        <img src="/images/TourMap.png" class="xl:w-full mx-auto w-3/4 object-fit" alt="خريطة جولة">
       </div>
     </div>
+
   </div>
 </section>

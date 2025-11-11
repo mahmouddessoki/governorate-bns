@@ -1,19 +1,27 @@
-import { Component,afterRender } from '@angular/core';
+import { Component, OnInit, afterRender } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+// flowbite
 import { initFlowbite } from 'flowbite';
+
+// global spinner
+import { NgxSpinnerComponent } from 'ngx-spinner';
+// toaster
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NgxSpinnerComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'governorate';
+  constructor() {
+    afterRender(() => {
+      initFlowbite(); // reinitialize Flowbite components
+    });
+  }
 
-  constructor(){
-    afterRender(()=>{
-        initFlowbite(); // reinitialize Flowbite components
-    })
+  ngOnInit(): void {
+
   }
 }
