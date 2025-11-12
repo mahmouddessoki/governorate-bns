@@ -17,7 +17,9 @@ export class SectorsComponent implements OnInit {
   sectors = input.required<infoRes>();
   mainSectors = computed(()=>this.sectors().data)
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.mainSectors());
+  }
 
 
 }

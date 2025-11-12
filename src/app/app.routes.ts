@@ -51,7 +51,6 @@ export const routes: Routes = [
         component: InformationNoteComponent,
         title: 'النوتة التعريفية',
       },
-      { path: 'sectors', component: SectorsComponent, title: 'القطاعات' },
       { path: 'data', component: DisplayDataComponent, title: 'رسوم بيانيه' },
       {
         path: 'activity',
