@@ -54,6 +54,11 @@ export const routes: Routes = [
       { path: 'sectors', component: SectorsComponent, title: 'القطاعات' },
       { path: 'data', component: DisplayDataComponent, title: 'رسوم بيانيه' },
       {
+        path: 'activity',
+        component: ActivityLogComponent,
+        title: 'سجل النشاط',
+      },
+      {
         path: 'sectors',
         component: SectorsComponent,
         title: 'القطاعات',
@@ -69,6 +74,7 @@ export const routes: Routes = [
           gov: getGovsResolver,
         },
       },
+
       {
         path: 'centers',
         component: CentersComponent,
