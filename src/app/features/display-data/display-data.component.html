@@ -3,7 +3,8 @@
   <div class="mb-6 flex items-center gap-4">
     <div>
       <button
-        class="bg-white text-[#232238] px-8 py-3 rounded-md leading-[100%]"
+        (click)="resetData()"
+        class="bg-white text-[#232238] px-8 py-3 rounded-md leading-[100%] cursor-pointer"
       >
         Reset
       </button>
@@ -13,7 +14,7 @@
         <button
           class="inline-flex py-3 w-[194px] justify-between gap-x-1.5 rounded-md px-3 bg-white text-[#232238] text-sm font-semibold inset-ring-1 inset-ring-white/5 cursor-pointer"
         >
-          Options
+          {{ centersNames }}
           <svg
             viewBox="0 0 20 20"
             fill="currentColor"
@@ -35,47 +36,18 @@
           class="w-56 origin-top-right divide-y divide-white/10 rounded-md bg-white outline-1 -outline-offset-1 outline-white/10 transition transition-discrete [--anchor-gap:--spacing(2)] data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
         >
           <div class="py-1">
+            @for (center of centersData(); track center.id) {
             <a
+              (click)="
+                retriveData(center.id, center.name);
+                $event.preventDefault();
+                $event.stopPropagation()
+              "
               href="#"
               class="block px-4 py-2 text-sm text-[#232238] focus:bg-white/5 focus:outline-hidden"
-              >Edit</a
+              >{{ center.name }}</a
             >
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm text-[#232238] focus:bg-white/5 focus:outline-hidden"
-              >Duplicate</a
-            >
-          </div>
-          <div class="py-1">
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm text-[#232238] focus:bg-white/5 focus:outline-hidden"
-              >Archive</a
-            >
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm text-[#232238] focus:bg-white/5 focus:outline-hidden"
-              >Move</a
-            >
-          </div>
-          <div class="py-1">
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm text-[#232238] focus:bg-white/5 focus:outline-hidden"
-              >Share</a
-            >
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm text-[#232238] focus:bg-white/5 focus:outline-hidden"
-              >Add to favorites</a
-            >
-          </div>
-          <div class="py-1">
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm text-[#232238] focus:bg-white/5 focus:outline-hidden"
-              >Delete</a
-            >
+            }
           </div>
         </el-menu>
       </el-dropdown>
@@ -85,7 +57,7 @@
         <button
           class="inline-flex py-3 w-[194px] justify-between gap-x-1.5 rounded-md px-3 bg-white text-[#232238] text-sm font-semibold inset-ring-1 inset-ring-white/5 cursor-pointer"
         >
-          Options
+          {{ localUnitsNames }}
           <svg
             viewBox="0 0 20 20"
             fill="currentColor"
@@ -107,47 +79,18 @@
           class="w-56 origin-top-right divide-y divide-white/10 rounded-md bg-white outline-1 -outline-offset-1 outline-white/10 transition transition-discrete [--anchor-gap:--spacing(2)] data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
         >
           <div class="py-1">
+            @for (localUnit of localUnitsData(); track $index) {
             <a
+              (click)="
+                retriveData(localUnit.id!, localUnit.name);
+                $event.preventDefault();
+                $event.stopPropagation()
+              "
               href="#"
               class="block px-4 py-2 text-sm text-[#232238] focus:bg-white/5 focus:outline-hidden"
-              >Edit</a
+              >{{ localUnit.name }}</a
             >
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm text-[#232238] focus:bg-white/5 focus:outline-hidden"
-              >Duplicate</a
-            >
-          </div>
-          <div class="py-1">
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm text-[#232238] focus:bg-white/5 focus:outline-hidden"
-              >Archive</a
-            >
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm text-[#232238] focus:bg-white/5 focus:outline-hidden"
-              >Move</a
-            >
-          </div>
-          <div class="py-1">
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm text-[#232238] focus:bg-white/5 focus:outline-hidden"
-              >Share</a
-            >
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm text-[#232238] focus:bg-white/5 focus:outline-hidden"
-              >Add to favorites</a
-            >
-          </div>
-          <div class="py-1">
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm text-[#232238] focus:bg-white/5 focus:outline-hidden"
-              >Delete</a
-            >
+            }
           </div>
         </el-menu>
       </el-dropdown>
@@ -156,6 +99,6 @@
 </section>
 
 <section class="flex items-center justify-between h-full">
-  <app-chart-data></app-chart-data>
-  <app-bar-chart></app-bar-chart>
+  <app-chart-data [beniSuefData]="beniSuefData()"></app-chart-data>
+  <app-bar-chart [allCentersData]="allCentersData()"></app-bar-chart>
 </section>
