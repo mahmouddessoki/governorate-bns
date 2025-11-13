@@ -51,7 +51,12 @@ export const routes: Routes = [
         component: InformationNoteComponent,
         title: 'النوتة التعريفية',
       },
-      { path: 'data', component: DisplayDataComponent, title: 'رسوم بيانيه' },
+      // { path: 'data', component: DisplayDataComponent, title: 'رسوم بيانيه' },
+      {
+        path: 'activity',
+        component: ActivityLogComponent,
+        title: 'سجل النشاط',
+      },
       {
         path: 'sectors',
         component: SectorsComponent,
@@ -68,6 +73,7 @@ export const routes: Routes = [
           gov: getGovsResolver,
         },
       },
+
       {
         path: 'centers',
         component: CentersComponent,
@@ -98,6 +104,11 @@ export const routes: Routes = [
         resolve: {
           subSectors: getSUbSectorsResolver,
         },
+      },
+      {
+        path: 'sectors/:id/:subId',
+        component: DisplayDataComponent,
+        title: 'رسوم بيانيه',
       },
       {
         path: '',

@@ -1,92 +1,143 @@
-import { Component } from '@angular/core';
+import { Component, effect, input, OnInit, signal } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import * as echarts from 'echarts/core';
 import { BarChart } from 'echarts/charts';
-import { GridComponent } from 'echarts/components';
+import {
+  GridComponent,
+  TooltipComponent,
+  LegendComponent,
+} from 'echarts/components';
 import { CanvasRenderer } from 'echarts/renderers';
 import { CommonModule } from '@angular/common';
 import { NgxEchartsDirective } from 'ngx-echarts';
-echarts.use([BarChart, GridComponent, CanvasRenderer]);
+
+// تسجيل الـ modules اللي محتاجها الرسم فقط
+echarts.use([
+  BarChart,
+  GridComponent,
+  TooltipComponent,
+  LegendComponent,
+  CanvasRenderer,
+]);
+
 @Component({
   selector: 'app-bar-chart',
   standalone: true,
   imports: [NgxEchartsDirective, CommonModule],
   templateUrl: './bar-chart.component.html',
-  styleUrl: './bar-chart.component.scss'
+  styleUrl: './bar-chart.component.scss',
 })
-export class BarChartComponent {
-  chartOption: EChartsOption = {
-    title: {
-      text: 'توزيع الذكور والإناث حسب المراكز - محافظة بني سويف',
-      left: 'center',
-      textStyle: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: '#fff',
+export class BarChartComponent implements OnInit {
+  // 🟦 input signal (البيانات بتيجي من الأب)
+  localUnitsData = input<
+    { name: string; male: string | number; female: string | number }[]
+  >([]);
+  allCentersData = input<
+    { name: string; male: string | number; female: string | number }[]
+  >([]);
+
+  ngOnInit(): void {
+    // 🟩 effect: يتفاعل تلقائيًا عند أي تغيير في inpu
+    console.log(
+      'BarChartComponent initialized with data:',
+      this.allCentersData()
+    );
+  }
+
+  // 🟨 signal للـ chart option
+  chartOption = signal<EChartsOption>({});
+
+  constructor() {
+    // 🟩 effect: يتفاعل تلقائيًا عند أي تغيير في input
+    effect(() => {
+      const data = this.allCentersData();
+      console.log('%c📊 بيانات جديدة:', 'color: lime', data);
+      this.updateChart(data);
+    });
+  }
+
+  // 🧩 function: تحديث الرسم حسب البيانات
+  private updateChart(data: any[] | undefined) {
+    if (!data || data.length === 0) {
+      this.chartOption.set({
+        title: {
+          text: 'لا توجد بيانات',
+          left: 'center',
+          top: 'middle',
+          textStyle: { color: '#fff', fontSize: 18 },
+        },
+      });
+      return;
+    }
+
+    // تجهيز البيانات للمخطط
+    const centers = data.map((d) => d.name);
+    const maleData = data.map((d) => this.safeParse(d.male) ?? 0);
+    const femaleData = data.map((d) => this.safeParse(d.female) ?? 0);
+
+    // بناء الـ option
+    const option: EChartsOption = {
+      backgroundColor: 'transparent',
+      title: {
+        text: 'توزيع الذكور والإناث حسب المراكز - محافظة بني سويف',
+        left: 'center',
+        textStyle: { fontSize: 16, fontWeight: 'bold', color: '#fff' },
       },
-    },
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'shadow',
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: { type: 'shadow' },
       },
-    },
-    legend: {
-      bottom: 0,
-      data: ['ذكور', 'إناث'],
-      textStyle: { color: '#fff' },
-    },
-    grid: {
-      top: 60,
-      left: '3%',
-      right: '4%',
-      bottom: 50,
-      containLabel: true,
-    },
-    xAxis: {
-      type: 'category',
-      data: [
-        'بني سويف',
-        'ناصر',
-        'إهناسيا',
-        'ببا',
-        'سمسطا',
-        'الفشن',
-        'الواسطى',
+      legend: {
+        bottom: 0,
+        data: ['ذكور', 'إناث'],
+        textStyle: { color: '#fff' },
+      },
+      grid: {
+        top: 60,
+        left: '3%',
+        right: '4%',
+        bottom: 50,
+        containLabel: true,
+      },
+      xAxis: {
+        type: 'category',
+        data: centers,
+        axisLabel: { color: '#fff', fontSize: 12, padding: 5 },
+        axisLine: { lineStyle: { color: '#555' } },
+      },
+      yAxis: {
+        type: 'value',
+        name: 'عدد السكان',
+        axisLabel: { color: '#fff' },
+        axisLine: { lineStyle: { color: '#555' } },
+        splitLine: { lineStyle: { color: '#333' } },
+      },
+      series: [
+        {
+          name: 'ذكور',
+          type: 'bar',
+          data: maleData,
+          itemStyle: { color: '#8DDCFE', borderRadius: [4, 4, 0, 0] },
+          animationDuration: 800,
+        },
+        {
+          name: 'إناث',
+          type: 'bar',
+          data: femaleData,
+          itemStyle: { color: '#F3B0F9', borderRadius: [4, 4, 0, 0] },
+          animationDuration: 800,
+        },
       ],
-      axisLabel: {
-        color: '#fff',
-        fontSize: 12,
-        padding: 5,
-      },
-      axisLine: { lineStyle: { color: '#555' } },
-    },
-    yAxis: {
-      type: 'value',
-      name: 'عدد السكان',
-      axisLabel: { color: '#fff' },
-      axisLine: { lineStyle: { color: '#555' } },
-      splitLine: { lineStyle: { color: '#333' } },
-    },
-    series: [
-      {
-        name: 'ذكور',
-        type: 'bar',
-        data: [52000, 32000, 21000, 39000, 26000, 28000, 34000],
-        itemStyle: {
-          color: '#8DDCFE',
-          borderRadius: [4, 4, 0, 0],
-        },
-      },
-      {
-        name: 'إناث',
-        type: 'bar',
-        data: [48000, 30000, 23000, 36000, 25000, 27000, 31000],
-        itemStyle: {
-          color: '#F3B0F9',
-          borderRadius: [4, 4, 0, 0],
-        },
-      },
-    ],
-  };
+    };
+
+    // 🟢 تحديث الـ chart signal
+    this.chartOption.set(option);
+  }
+
+  // 🔹 تحويل آمن لأي قيمة رقمية
+  private safeParse(val: string | number | any): number | null {
+    if (val === null || val === undefined) return null;
+    const n = parseFloat(String(val).trim());
+    return isNaN(n) ? null : n;
+  }
 }

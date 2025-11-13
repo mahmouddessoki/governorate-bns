@@ -6,7 +6,7 @@ import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  imports: [CardComponent, SectionHeaderComponent , NgOptimizedImage],
+  imports: [CardComponent, SectionHeaderComponent, NgOptimizedImage],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -19,6 +19,6 @@ export class HomeComponent {
     { title: 'الوحدات المحليه', router: '/local-units' },
     { title: 'القرى', router: '/villages' },
     { title: 'المشرفين', router: '/' },
-    { title: 'سجل النشاط', router: '/' },
+    { title: 'سجل النشاط', router: '/activity' },
   ];
 }
