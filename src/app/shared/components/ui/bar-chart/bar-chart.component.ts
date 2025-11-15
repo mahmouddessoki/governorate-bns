@@ -48,7 +48,6 @@ export class BarChartComponent implements OnInit {
   chartOption = signal<EChartsOption>({});
 
   constructor() {
-    // 🟩 effect: يتفاعل تلقائيًا عند أي تغيير في input
     effect(() => {
       const data = this.allCentersData();
       console.log('%c📊 بيانات جديدة:', 'color: lime', data);
@@ -56,7 +55,6 @@ export class BarChartComponent implements OnInit {
     });
   }
 
-  // 🧩 function: تحديث الرسم حسب البيانات
   private updateChart(data: any[] | undefined) {
     if (!data || data.length === 0) {
       this.chartOption.set({

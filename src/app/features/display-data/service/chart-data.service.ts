@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
-import { Observable, tap } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { ResponseAdapterService } from './../../../shared/services/response-adapter.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,13 +10,12 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 export class ChartDataService {
   private readonly apiUrl = environment.BASE_URL;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private responseAdapterService: ResponseAdapterService
+  ) {}
 
-  getChartData(
-    subSectorId?: number,
-    localUnitId?: number,
-    center_id?: number
-  ): Observable<any> {
+  getChartData(center_id?: number, localUnitId?: number): Observable<any> {
     let params = new HttpParams();
     if (center_id) {
       params = params.set('center_id', center_id);
@@ -23,17 +23,18 @@ export class ChartDataService {
     if (localUnitId) {
       params = params.set('local_unit_id', localUnitId);
     }
-    if (subSectorId) {
-      params = params.set('sub_sector_id', subSectorId);
-    }
+    // if (subSectorId) {
+    //   params = params.set('sub_sector_id', subSectorId);
+    // }
 
     return this.http
       .get(`${this.apiUrl}population-charts`, {
         params,
       })
       .pipe(
-        tap((response) => {
-          console.log('Chart data fetched:', response);
+        map((response) => {
+          response = this.responseAdapterService.adapt(response as any);
+          return response;
         })
       );
   }

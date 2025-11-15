@@ -36,10 +36,10 @@
           class="w-56 origin-top-right divide-y divide-white/10 rounded-md bg-white outline-1 -outline-offset-1 outline-white/10 transition transition-discrete [--anchor-gap:--spacing(2)] data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
         >
           <div class="py-1">
-            @for (center of centersData(); track center.id) {
+            @for (center of allCentersData; track center.id) {
             <a
               (click)="
-                retriveData(center.id, center.name);
+                centersName(center.id, center.name);
                 $event.preventDefault();
                 $event.stopPropagation()
               "
@@ -79,10 +79,10 @@
           class="w-56 origin-top-right divide-y divide-white/10 rounded-md bg-white outline-1 -outline-offset-1 outline-white/10 transition transition-discrete [--anchor-gap:--spacing(2)] data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
         >
           <div class="py-1">
-            @for (localUnit of localUnitsData(); track $index) {
+            @for (localUnit of localUnitsData; track $index) {
             <a
               (click)="
-                retriveData(localUnit.id!, localUnit.name);
+                localUnitsName(localUnit.id!, localUnit.name);
                 $event.preventDefault();
                 $event.stopPropagation()
               "
@@ -99,6 +99,7 @@
 </section>
 
 <section class="flex items-center justify-between h-full">
-  <app-chart-data [beniSuefData]="beniSuefData()"></app-chart-data>
-  <app-bar-chart [allCentersData]="allCentersData()"></app-bar-chart>
+  <app-chart-data [beniSuefData]="governoratesRes"></app-chart-data>
+
+  <app-bar-chart [allCentersData]="barChartData"></app-bar-chart>
 </section>

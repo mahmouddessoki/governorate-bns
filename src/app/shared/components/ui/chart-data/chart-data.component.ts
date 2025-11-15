@@ -17,9 +17,7 @@ echarts.use([PieChart, GridComponent, CanvasRenderer]); // ✅ تحديث الا
 })
 export class ChartDataComponent {
   // ---- INPUT -------------------------------------------------
-  beniSuefData = input<{ male: string | number; female: string | number }[]>(
-    []
-  );
+  beniSuefData = input<any[]>([]);
 
   // ---- STATE -------------------------------------------------
   chartOption = signal<EChartsOption>({});
@@ -67,8 +65,9 @@ export class ChartDataComponent {
 
     // --- حالة: بيانات غير صالحة ---
     const item = data[0];
-    const male = this.safeParse(item.male);
-    const female = this.safeParse(item.female);
+    const male = this.safeParse(item?.male);
+    const female = this.safeParse(item?.female);
+    console.log('Parsed Male:', male, 'Parsed Female:', female);
 
     if (male === null || female === null) {
       option.title = {
