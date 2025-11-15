@@ -3,8 +3,9 @@
 
 .sidebar {
   align-items: center;
-  &,.nav {
-    height: 100%;
+  &,
+  .nav {
+    // height: 100%;
   }
   .nav {
     background-color: #27272a;
