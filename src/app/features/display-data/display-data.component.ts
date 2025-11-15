@@ -63,8 +63,6 @@ export class DisplayDataComponent implements OnInit {
           console.log('res Chart Data:', res);
           centerId ? (this.localUnitsData = res.barChartData) : [];
           this.allCentersData = res.allCentersData;
-          // this.beniSuefData.set([res.data.governorate_stats]);
-          // this.localUnitsData.set(res.data.local_units_stats);
         }
       });
   }
