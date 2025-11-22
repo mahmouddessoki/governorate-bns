@@ -43,6 +43,17 @@ export class BarChartComponent implements OnInit {
       this.allCentersData()
     );
   }
+  // 👇 labels = أسماء المراكز (strings)
+  labels = input<string[]>([]);
+
+  // 👇 series = شكل ديناميكي
+  series = input<
+    {
+      name: string;
+      data: (string | number)[];
+      color?: string;
+    }[]
+  >([]);
 
   // 🟨 signal للـ chart option
   chartOption = signal<EChartsOption>({});
@@ -52,7 +63,54 @@ export class BarChartComponent implements OnInit {
       const data = this.allCentersData();
       console.log('%c📊 بيانات جديدة:', 'color: lime', data);
       this.updateChart(data);
+      this.updateCharts();
     });
+  }
+
+  private updateCharts() {
+    const labels = this.labels();
+    const series = this.series();
+
+    if (!labels.length || !series.length) {
+      this.chartOption.set({
+        title: {
+          text: 'لا توجد بيانات',
+          left: 'center',
+          top: 'middle',
+          textStyle: { color: '#fff', fontSize: 18 },
+        },
+      });
+      return;
+    }
+
+    const option: EChartsOption = {
+      backgroundColor: 'transparent',
+      tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+      legend: {
+        bottom: 0,
+        textStyle: { color: '#fff' },
+      },
+      xAxis: {
+        type: 'category',
+        data: labels,
+        axisLabel: { color: '#fff', fontSize: 12 },
+      },
+      yAxis: {
+        type: 'value',
+        axisLabel: { color: '#fff' },
+      },
+      series: series.map((s) => ({
+        name: s.name,
+        type: 'bar',
+        data: s.data,
+        itemStyle: {
+          color: s.color || undefined,
+          borderRadius: [4, 4, 0, 0],
+        },
+      })),
+    };
+
+    this.chartOption.set(option);
   }
 
   private updateChart(data: any[] | undefined) {

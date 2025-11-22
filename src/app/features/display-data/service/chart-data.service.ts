@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { map, Observable, tap } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -9,6 +9,7 @@ import { ResponseAdapterService } from './../../../shared/services/response-adap
 })
 export class ChartDataService {
   private readonly apiUrl = environment.BASE_URL;
+  pageType = signal<string>('');
 
   constructor(
     private http: HttpClient,
@@ -23,9 +24,6 @@ export class ChartDataService {
     if (localUnitId) {
       params = params.set('local_unit_id', localUnitId);
     }
-    // if (subSectorId) {
-    //   params = params.set('sub_sector_id', subSectorId);
-    // }
 
     return this.http
       .get(`${this.apiUrl}population-charts`, {
@@ -33,10 +31,27 @@ export class ChartDataService {
       })
       .pipe(
         map((response) => {
+          console.log('Adapted Chart Data Response:', response);
           response = this.responseAdapterService.adapt(response as any);
+          console.log('Adapted Chart Data Response:', response);
           return response;
         })
       );
+  }
+  getFamiliesCount(center_id?: number, localUnitId?: number) {
+    let params = new HttpParams();
+    if (center_id) {
+      params = params.set('center_id', center_id);
+    }
+    if (localUnitId) {
+      params = params.set('local_unit_id', localUnitId);
+    }
+    return this.http.get(`${this.apiUrl}families-count`, { params }).pipe(
+      map((response) => {
+        response = this.responseAdapterService.adapt(response as any);
+        return response;
+      })
+    );
   }
   getCenters(): Observable<any> {
     return this.http.get(`${this.apiUrl}centers`).pipe(

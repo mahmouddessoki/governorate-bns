@@ -6,3 +6,9 @@
   height: 400px;
   //   width: 100%;
 }
+
+.bar-chart {
+  @media (max-width: 768px) {
+    min-width: 90vw !important;
+  }
+}

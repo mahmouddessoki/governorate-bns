@@ -3,12 +3,33 @@
   min-height: 100vh;
 }
 
+.layout-user {
+  .sidebar-container {
+    position: fixed;
+    top: 0;
+    inset-inline-start: 0;
+    bottom: 0;
+  }
+  .main-content {
+    margin-inline-start: 17vw;
+  }
+}
+
 @media (max-width: 768px) {
   .layout-user {
     flex-direction: column;
     ::ng-deep .nav-bar {
       width: 100%;
       height: auto;
+    }
+    .sidebar-container {
+      position: static;
+      width: 100%;
+      height: auto;
+    }
+    .main-content {
+      margin: 0;
+      padding: 10px 16px;
     }
   }
 }

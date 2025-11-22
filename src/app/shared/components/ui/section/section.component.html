@@ -1,18 +1,19 @@
+<section-header> {{ infoHeader() }} </section-header>
 
-  <section-header> {{infoHeader()}} </section-header>
-
-    <div class="col-span-12 lg:col-span-8">
-      <div [class]="{
+<div class="col-span-12 lg:col-span-8">
+  <div
+    [class]="{
         'grid-cols-1':infoCards().length < 4,
         'grid-cols-12':infoCards().length >= 4 ,
-      }"  class="grid gap-4">
-        @for (card of infoCards(); track $index) {
-        <div class="card-responsive">
-          <app-card [cardRoute]="card.id.toString()">
-            {{ card.name }}
-          </app-card>
-        </div>
-        }
-      </div>
+      }"
+    class="grid gap-4"
+  >
+    @for (card of infoCards(); track $index) {
+    <div class="card-responsive">
+      <app-card [cardRoute]="card.id.toString()" [pageType]="card.name">
+        {{ card.name }}
+      </app-card>
     </div>
-
+    }
+  </div>
+</div>
