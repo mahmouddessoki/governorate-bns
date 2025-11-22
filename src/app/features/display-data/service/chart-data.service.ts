@@ -53,6 +53,68 @@ export class ChartDataService {
       })
     );
   }
+
+  getEzbaCount(center_id?: number, localUnitId?: number): Observable<any> {
+    let params = new HttpParams();
+    if (center_id) {
+      params = params.set('center_id', center_id);
+    }
+    if (localUnitId) {
+      params = params.set('local_unit_id', localUnitId);
+    }
+    return this.http.get(`${this.apiUrl}ezba-count`, { params }).pipe(
+      map((response) => {
+        response = this.responseAdapterService.adapt(response as any);
+        return response;
+      })
+    );
+  }
+
+  getNaturalIncreaseRate(
+    centerId?: number,
+    localUnitId?: number
+  ): Observable<any> {
+    let params = new HttpParams();
+    if (centerId) {
+      params = params.set('center_id', centerId);
+    }
+    if (localUnitId) {
+      params = params.set('local_unit_id', localUnitId);
+    }
+    return this.http.get(`${this.apiUrl}natural-IncreaseRate`, { params }).pipe(
+      map((response) => {
+        response = this.responseAdapterService.adapt(response as any);
+        return response;
+      }),
+      tap((data) => {
+        console.log('Natural Increase Rate Data:', data);
+      })
+    );
+  }
+  getMaritalStatusStatistics(
+    centerId?: number,
+    localUnitId?: number
+  ): Observable<any> {
+    let params = new HttpParams();
+    if (centerId) {
+      params = params.set('center_id', centerId);
+    }
+    if (localUnitId) {
+      params = params.set('local_unit_id', localUnitId);
+    }
+    return this.http
+      .get(`${this.apiUrl}maritalStatusStatistics`, { params })
+      .pipe(
+        map((response) => {
+          response = this.responseAdapterService.adapt(response as any);
+          return response;
+        }),
+        tap((data) => {
+          console.log('Natural Increase Rate Data:', data);
+        })
+      );
+  }
+
   getCenters(): Observable<any> {
     return this.http.get(`${this.apiUrl}centers`).pipe(
       tap((response) => {

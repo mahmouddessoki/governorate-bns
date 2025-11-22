@@ -17,6 +17,16 @@ export interface GovernorateStats {
     male?: string;
     female?: string;
   };
+  rate?: {
+    birth_rate?: string;
+    death_rate?: string;
+  };
+  marital_status?: {
+    single?: string;
+    married?: string;
+    divorced?: string;
+    widowed?: string;
+  };
   families_count?: string;
 }
 
@@ -27,6 +37,14 @@ export interface CentersStat {
   male?: string;
   female?: string;
   families_count?: string;
+  birth_rate?: string;
+  death_rate?: string;
+  marital_status?: {
+    single?: string;
+    married?: string;
+    divorced?: string;
+    widowed?: string;
+  };
 }
 
 export interface LocalUnitStat {
@@ -36,6 +54,14 @@ export interface LocalUnitStat {
   male?: string;
   female?: string;
   families_count?: string;
+  birth_rate?: string;
+  death_rate?: string;
+  marital_status?: {
+    single?: string;
+    married?: string;
+    divorced?: string;
+    widowed?: string;
+  };
 }
 
 export interface villagesStat {
@@ -45,4 +71,12 @@ export interface villagesStat {
   male?: string;
   female?: string;
   families_count?: string;
+  birth_rate?: string;
+  death_rate?: string;
+  marital_status?: {
+    single?: string;
+    married?: string;
+    divorced?: string;
+    widowed?: string;
+  };
 }

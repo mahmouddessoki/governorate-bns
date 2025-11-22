@@ -18,7 +18,9 @@ echarts.use([PieChart, GridComponent, CanvasRenderer]); // ✅ تحديث الا
 export class ChartDataComponent {
   // ---- INPUT -------------------------------------------------
   beniSuefData = input<any[]>([]);
-  chartData = input<{ label: string; value: number; color?: string }[]>([]);
+  chartData = input<
+    { label: string; value: number | string; color?: string }[]
+  >([]);
   chartTitle = input<string>('');
 
   // ---- STATE -------------------------------------------------
@@ -27,10 +29,9 @@ export class ChartDataComponent {
   // ---- EFFECT ------------------------------------------------
   constructor() {
     effect(() => {
-      const data = this.beniSuefData();
       console.log('EFFECT تغير → ', this.chartData());
       console.log('EFFECT تغير → ', this.chartTitle());
-      console.log('%c INPUT تغير → ', 'color: lime', data);
+
       // this.updateChart(data);
       this.updateCharts(this.chartData());
     });

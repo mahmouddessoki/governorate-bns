@@ -15,8 +15,9 @@ import { ActivatedRoute } from '@angular/router';
 export enum SectorTypes {
   Population = 1,
   families_count = 2,
-  Births = 3,
-  Banks = 4,
+  ezba_count = 3,
+  marital_status_statistics = 6,
+  natural_increase = 7,
 }
 @Component({
   selector: 'app-display-data',
@@ -86,6 +87,16 @@ export class DisplayDataComponent implements OnInit {
       case SectorTypes.families_count:
         this.getFamiliesCount(centerId, localUnitId);
         break;
+      case SectorTypes.ezba_count:
+        this.getEzbaCount(centerId, localUnitId);
+        break;
+
+      case SectorTypes.natural_increase:
+        this.getNaturalIncreaseRate(centerId, localUnitId);
+        break;
+      case SectorTypes.marital_status_statistics:
+        this.getMaritalStatusStatistics(centerId, localUnitId);
+        break;
 
       default:
         console.error('Unknown sector ID:', id);
@@ -93,6 +104,7 @@ export class DisplayDataComponent implements OnInit {
     }
   }
 
+  // استرجاع بيانات السكان
   fetchChartData(centerId?: number, localUnitId?: number): void {
     this.chartDataService
       .getChartData(centerId, localUnitId)
@@ -136,6 +148,7 @@ export class DisplayDataComponent implements OnInit {
       });
   }
 
+  // استرجاع عدد الأسر
   getFamiliesCount(centerId?: number, localUnitId?: number): void {
     this.chartDataService
       .getFamiliesCount(centerId, localUnitId)
@@ -171,6 +184,155 @@ export class DisplayDataComponent implements OnInit {
       });
   }
 
+  // استرجاع عدد العزب
+  getEzbaCount(centerId?: number, localUnitId?: number): void {
+    this.chartDataService
+      .getEzbaCount(centerId, localUnitId)
+      .subscribe((res: any) => {
+        if (res) {
+          const centers = res.allCentersData;
+          this.chartLabels.set(centers.map((c: any) => c.name));
+          this.chartSeries.set([
+            {
+              name: 'عدد العزب',
+              data: centers.map((c: any) => Number(c.Ezab_count) ?? 0),
+              color: '#8DDCFE',
+            },
+          ]);
+          this.allCentersData = centers;
+          console.log('Fetched Ezba Count Data:', this.allCentersData);
+          this.governoratesRes = res.governoratesData;
+          console.log('Fetched Chart Data:', this.governoratesRes);
+          this.governoratesRes = [
+            {
+              label: 'عدد العزب',
+              value: Number(res.governoratesData[0].Ezab_count) ?? 0,
+              color: '#FBBF24',
+            },
+          ];
+          // this.barChartData = res.barChartData;
+          console.log('Fetched Chart Data:', this.governoratesRes);
+          // // console.log('Fetched Chart Data:', this.barChartData);
+          // // console.log('res Chart Data:', res);
+          centerId ? (this.localUnitsData = res.barChartData) : [];
+          // this.allCentersData = res.allCentersData;
+        }
+      });
+  }
+
+  // استرجاع عدد العزب
+  getNaturalIncreaseRate(centerId?: number, localUnitId?: number): void {
+    this.chartDataService
+      .getNaturalIncreaseRate(centerId, localUnitId)
+      .subscribe((res: any) => {
+        if (res) {
+          const centers = res.allCentersData;
+          this.chartLabels.set(centers.map((c: any) => c.name));
+          this.chartSeries.set([
+            {
+              name: 'عدد المواليد',
+              data: centers.map(
+                (c: any) => this.normalizeValue(c.birth_rate) ?? 0
+              ),
+              color: '#8DDCFE',
+            },
+            {
+              name: 'عدد الوفيات',
+              data: centers.map(
+                (c: any) => this.normalizeValue(c.death_rate) ?? 0
+              ),
+              color: '#FBBF24',
+            },
+          ]);
+          this.allCentersData = centers;
+          this.governoratesRes = res.governoratesData;
+          this.governoratesRes = [
+            {
+              label: 'عدد المواليد',
+              value:
+                this.normalizeValue(res.governoratesData[0].birth_rate) ?? 0,
+              color: '#8DDCFE',
+            },
+            {
+              label: 'عدد الوفيات',
+              value:
+                this.normalizeValue(res.governoratesData[0].death_rate) ?? 0,
+              color: '#FBBF24',
+            },
+          ];
+
+          centerId ? (this.localUnitsData = res.barChartData) : [];
+          // this.allCentersData = res.allCentersData;
+        }
+      });
+  }
+
+  // استرجاع إحصائيات الحالة الاجتماعية
+  getMaritalStatusStatistics(centerId?: number, localUnitId?: number): void {
+    this.chartDataService
+      .getMaritalStatusStatistics(centerId, localUnitId)
+      .subscribe((res: any) => {
+        if (res) {
+          const centers = res.allCentersData;
+          console.log('centers', centers);
+          this.chartLabels.set(centers.map((c: any) => c.name));
+          const types = ['single', 'married', 'widowed', 'divorced'];
+          const colors: any = {
+            single: '#60A5FA',
+            married: '#34D399',
+            widowed: '#A78BFA',
+            divorced: '#F472B6',
+          };
+          const status = res.governoratesData[0].marital_status_counts;
+
+          const chartSeries = types.map((type) => ({
+            name: status[type].label,
+            data: centers.map((c: any) =>
+              this.normalizeValue(c.marital_status_counts[type].count)
+            ),
+            color: colors[type],
+          }));
+
+          this.chartSeries.set(chartSeries);
+
+          this.allCentersData = centers;
+          const formatted = [
+            {
+              label: status.single.label,
+              value: this.normalizeValue(status.single.count),
+              color: colors.single,
+            },
+            {
+              label: status.married.label,
+              value: this.normalizeValue(status.married.count),
+              color: colors.married,
+            },
+            {
+              label: status.widowed.label,
+              value: this.normalizeValue(status.widowed.count),
+              color: colors.widowed,
+            },
+            {
+              label: status.divorced.label,
+              value: this.normalizeValue(status.divorced.count),
+              color: colors.divorced,
+            },
+          ];
+
+          this.governoratesRes = formatted;
+
+          centerId ? (this.localUnitsData = res.barChartData) : [];
+          // this.allCentersData = res.allCentersData;
+        }
+      });
+  }
+
+  // تطبيع القيم الرقمية
+
+  private normalizeValue(val: string | number): number {
+    if (!val) return 0;
+    return Number(String(val).replace(/[^\d.]/g, ''));
+  }
   // استرجاع البيانات عند اختيار مركز أو وحدة محلية
 
   centersName(centerId: number, name: string): void {
