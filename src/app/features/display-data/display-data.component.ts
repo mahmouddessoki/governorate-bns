@@ -164,9 +164,7 @@ export class DisplayDataComponent implements OnInit {
             },
           ]);
           this.allCentersData = centers;
-          console.log('Fetched Families Count Data:', this.allCentersData);
           this.governoratesRes = res.governoratesData;
-          console.log('Fetched Chart Data:', this.governoratesRes);
           this.governoratesRes = [
             {
               label: 'عدد الأسر',
@@ -174,10 +172,7 @@ export class DisplayDataComponent implements OnInit {
               color: '#6EE7B7',
             },
           ];
-          // this.barChartData = res.barChartData;
-          console.log('Fetched Chart Data:', this.governoratesRes);
-          // // console.log('Fetched Chart Data:', this.barChartData);
-          // // console.log('res Chart Data:', res);
+
           centerId ? (this.localUnitsData = res.barChartData) : [];
           // this.allCentersData = res.allCentersData;
         }
@@ -200,9 +195,7 @@ export class DisplayDataComponent implements OnInit {
             },
           ]);
           this.allCentersData = centers;
-          console.log('Fetched Ezba Count Data:', this.allCentersData);
           this.governoratesRes = res.governoratesData;
-          console.log('Fetched Chart Data:', this.governoratesRes);
           this.governoratesRes = [
             {
               label: 'عدد العزب',
@@ -210,10 +203,7 @@ export class DisplayDataComponent implements OnInit {
               color: '#FBBF24',
             },
           ];
-          // this.barChartData = res.barChartData;
-          console.log('Fetched Chart Data:', this.governoratesRes);
-          // // console.log('Fetched Chart Data:', this.barChartData);
-          // // console.log('res Chart Data:', res);
+
           centerId ? (this.localUnitsData = res.barChartData) : [];
           // this.allCentersData = res.allCentersData;
         }
@@ -274,7 +264,7 @@ export class DisplayDataComponent implements OnInit {
       .subscribe((res: any) => {
         if (res) {
           const centers = res.allCentersData;
-          console.log('centers', centers);
+
           this.chartLabels.set(centers.map((c: any) => c.name));
           const types = ['single', 'married', 'widowed', 'divorced'];
           const colors: any = {
