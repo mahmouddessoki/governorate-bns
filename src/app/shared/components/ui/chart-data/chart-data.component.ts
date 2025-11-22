@@ -18,6 +18,8 @@ echarts.use([PieChart, GridComponent, CanvasRenderer]); // ✅ تحديث الا
 export class ChartDataComponent {
   // ---- INPUT -------------------------------------------------
   beniSuefData = input<any[]>([]);
+  chartData = input<{ label: string; value: number; color?: string }[]>([]);
+  chartTitle = input<string>('');
 
   // ---- STATE -------------------------------------------------
   chartOption = signal<EChartsOption>({});
@@ -26,8 +28,11 @@ export class ChartDataComponent {
   constructor() {
     effect(() => {
       const data = this.beniSuefData();
+      console.log('EFFECT تغير → ', this.chartData());
+      console.log('EFFECT تغير → ', this.chartTitle());
       console.log('%c INPUT تغير → ', 'color: lime', data);
-      this.updateChart(data);
+      // this.updateChart(data);
+      this.updateCharts(this.chartData());
     });
   }
 
@@ -101,6 +106,55 @@ export class ChartDataComponent {
           { value: female, name: 'إناث', itemStyle: { color: '#F3B0F9' } },
         ],
         emphasis: { scale: true, scaleSize: 10 },
+      },
+    ];
+
+    this.chartOption.set(option);
+  }
+
+  private updateCharts(data: any[] | undefined) {
+    const option: EChartsOption = {
+      backgroundColor: 'transparent',
+      title: {
+        text: this.chartTitle(),
+        left: 'center',
+        top: 10,
+        textStyle: { fontSize: 16, fontWeight: 'bold', color: '#fff' },
+      },
+      tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+      legend: {
+        orient: 'horizontal',
+        bottom: 10,
+        textStyle: { color: '#ccc' },
+      },
+      series: [],
+    };
+
+    if (!data || data.length === 0) {
+      option.title = {
+        text: 'لا توجد بيانات',
+        left: 'center',
+        top: 'middle',
+        textStyle: { color: '#fff', fontSize: 18 },
+      };
+      this.chartOption.set(option);
+      return;
+    }
+
+    option.series = [
+      {
+        name: 'data',
+        type: 'pie',
+        radius: ['50%', '75%'],
+        label: {
+          color: '#fff',
+          formatter: '{b}: {c} ({d}%)',
+        },
+        data: data.map((item) => ({
+          value: item.value,
+          name: item.label,
+          itemStyle: item.color ? { color: item.color } : {},
+        })),
       },
     ];
 

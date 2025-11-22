@@ -1,15 +1,14 @@
 <div class="bg-[#444444] px-3 py-4 rounded-lg h-[450px]">
   <div class="text-end">
-    <h2 class="text-[#DCDCDF] text-[20px] font-bold">المحافظة</h2>
-    <div class="flex items-center gap-3 justify-end text-[12px] text-white">
-      <h3>اناث</h3>
-      <h3>ذكور</h3>
-    </div>
+    <h2 class="text-[#DCDCDF] text-[20px] font-bold">{{ chartTitle() }}</h2>
+    <div
+      class="flex items-center gap-3 justify-end text-[12px] text-white"
+    ></div>
   </div>
   <div
     style="height: 350px"
     echarts
     [options]="chartOption()"
-    class="h-[200px] min-w-[35vw]"
+    class="h-[200px] min-w-[35vw] pie-chart"
   ></div>
 </div>
