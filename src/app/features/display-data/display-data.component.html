@@ -104,14 +104,23 @@
 </section>
 
 <section
-  class="flex items-center justify-between h-full chart-data-section gap-8"
+  class="flex items-center justify-between h-full chart-data-section"
+  [class.flex-col]="subId() == 5 || subId() == 9"
+  [ngClass]="{
+    'gap-4': subId() == 5 || subId() == 9,
+    'gap-8': subId() != 5 && subId() != 9
+  }"
 >
-  <app-chart-data
-    [chartData]="governoratesRes"
-    [chartTitle]="chartTitle()"
-  ></app-chart-data>
-  <app-bar-chart
-    [labels]="chartLabels()"
-    [series]="chartSeries()"
-  ></app-bar-chart>
+  <div class="w-full">
+    <app-chart-data
+      [chartData]="governoratesRes"
+      [chartTitle]="chartTitle()"
+    ></app-chart-data>
+  </div>
+  <div class="w-full">
+    <app-bar-chart
+      [labels]="chartLabels()"
+      [series]="chartSeries()"
+    ></app-bar-chart>
+  </div>
 </section>

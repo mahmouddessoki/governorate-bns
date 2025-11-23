@@ -12,16 +12,29 @@ import { ChartDataComponent } from '../../shared/components/ui/chart-data/chart-
 import { BarChartComponent } from '../../shared/components/ui/bar-chart/bar-chart.component';
 import { ChartDataService } from './service/chart-data.service';
 import { ActivatedRoute } from '@angular/router';
+import {
+  CommonModule,
+  NgClass,
+} from '../../../../node_modules/@angular/common';
 export enum SectorTypes {
   Population = 1,
   families_count = 2,
   ezba_count = 3,
+  area_buildings_statistics = 4,
+  age_group_statistics = 5,
   marital_status_statistics = 6,
   natural_increase = 7,
+  education_statistics = 9,
 }
 @Component({
   selector: 'app-display-data',
-  imports: [SectionHeaderComponent, ChartDataComponent, BarChartComponent],
+  imports: [
+    SectionHeaderComponent,
+    ChartDataComponent,
+    BarChartComponent,
+    NgClass,
+    CommonModule,
+  ],
   templateUrl: './display-data.component.html',
   styleUrl: './display-data.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -58,7 +71,6 @@ export class DisplayDataComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    // this.fetchChartData();
     this.getPageType();
 
     this.chartTitle.set('محافظة بني سويف');
@@ -97,6 +109,15 @@ export class DisplayDataComponent implements OnInit {
       case SectorTypes.marital_status_statistics:
         this.getMaritalStatusStatistics(centerId, localUnitId);
         break;
+      case SectorTypes.area_buildings_statistics:
+        this.getAreaBuildingsStatistics(centerId, localUnitId);
+        break;
+      case SectorTypes.age_group_statistics:
+        this.getAgeGroupStatistics(centerId, localUnitId);
+        break;
+      case SectorTypes.education_statistics:
+        this.getEducationStatistics(centerId, localUnitId);
+        break;
 
       default:
         console.error('Unknown sector ID:', id);
@@ -110,7 +131,7 @@ export class DisplayDataComponent implements OnInit {
       .getChartData(centerId, localUnitId)
       .subscribe((res) => {
         if (res) {
-          const centers = res.allCentersData;
+          const centers = centerId ? res.barChartData : res.allCentersData;
           this.chartLabels.set(centers.map((c: any) => c.name));
           this.chartSeries.set([
             {
@@ -138,10 +159,7 @@ export class DisplayDataComponent implements OnInit {
               color: '#F3B0F9',
             },
           ];
-          // this.barChartData = res.barChartData;
           console.log('Fetched Chart Data:', this.governoratesRes);
-          // this.governoratesRes = res.governoratesData;
-          // this.barChartData = res.barChartData;
 
           centerId ? (this.localUnitsData = res.barChartData) : [];
         }
@@ -154,7 +172,7 @@ export class DisplayDataComponent implements OnInit {
       .getFamiliesCount(centerId, localUnitId)
       .subscribe((res: any) => {
         if (res) {
-          const centers = res.allCentersData;
+          const centers = centerId ? res.barChartData : res.allCentersData;
           this.chartLabels.set(centers.map((c: any) => c.name));
           this.chartSeries.set([
             {
@@ -174,7 +192,6 @@ export class DisplayDataComponent implements OnInit {
           ];
 
           centerId ? (this.localUnitsData = res.barChartData) : [];
-          // this.allCentersData = res.allCentersData;
         }
       });
   }
@@ -185,7 +202,7 @@ export class DisplayDataComponent implements OnInit {
       .getEzbaCount(centerId, localUnitId)
       .subscribe((res: any) => {
         if (res) {
-          const centers = res.allCentersData;
+          const centers = centerId ? res.barChartData : res.allCentersData;
           this.chartLabels.set(centers.map((c: any) => c.name));
           this.chartSeries.set([
             {
@@ -205,7 +222,6 @@ export class DisplayDataComponent implements OnInit {
           ];
 
           centerId ? (this.localUnitsData = res.barChartData) : [];
-          // this.allCentersData = res.allCentersData;
         }
       });
   }
@@ -216,7 +232,7 @@ export class DisplayDataComponent implements OnInit {
       .getNaturalIncreaseRate(centerId, localUnitId)
       .subscribe((res: any) => {
         if (res) {
-          const centers = res.allCentersData;
+          const centers = centerId ? res.barChartData : res.allCentersData;
           this.chartLabels.set(centers.map((c: any) => c.name));
           this.chartSeries.set([
             {
@@ -252,7 +268,6 @@ export class DisplayDataComponent implements OnInit {
           ];
 
           centerId ? (this.localUnitsData = res.barChartData) : [];
-          // this.allCentersData = res.allCentersData;
         }
       });
   }
@@ -263,7 +278,7 @@ export class DisplayDataComponent implements OnInit {
       .getMaritalStatusStatistics(centerId, localUnitId)
       .subscribe((res: any) => {
         if (res) {
-          const centers = res.allCentersData;
+          const centers = centerId ? res.barChartData : res.allCentersData;
 
           this.chartLabels.set(centers.map((c: any) => c.name));
           const types = ['single', 'married', 'widowed', 'divorced'];
@@ -312,8 +327,163 @@ export class DisplayDataComponent implements OnInit {
           this.governoratesRes = formatted;
 
           centerId ? (this.localUnitsData = res.barChartData) : [];
-          // this.allCentersData = res.allCentersData;
         }
+      });
+  }
+
+  // استرجاع إحصائيات مباني المناطق
+  getAreaBuildingsStatistics(centerId?: number, localUnitId?: number): void {
+    this.chartDataService
+      .getAreaBuildingsStatistics(centerId, localUnitId)
+      .subscribe((res: any) => {
+        if (res) {
+          const centers = centerId ? res.barChartData : res.allCentersData;
+
+          this.chartLabels.set(centers.map((c: any) => c.name));
+
+          this.chartSeries.set([
+            {
+              name: 'إجمالي المساحة (كم²)',
+              data: centers.map((c: any) =>
+                this.normalizeValue(c.total_area_km2)
+              ),
+              color: '#60A5FA',
+            },
+            {
+              name: 'عدد المباني',
+              data: centers.map((c: any) =>
+                this.normalizeValue(c.buildings_count)
+              ),
+              color: '#34D399',
+            },
+            {
+              name: 'المساحة المزروعة (كم²)',
+              data: centers.map((c: any) =>
+                this.normalizeValue(c.cultivated_area_km2)
+              ),
+              color: '#FBBF24',
+            },
+          ]);
+
+          this.allCentersData = centers;
+          this.governoratesRes = res.governoratesData[0];
+
+          this.governoratesRes = [
+            {
+              label: 'إجمالي المساحة (كم²)',
+              value: this.normalizeValue(this.governoratesRes.total_area_km2),
+              color: '#60A5FA',
+            },
+            {
+              label: 'عدد المباني',
+              value: this.normalizeValue(this.governoratesRes.buildings_count),
+              color: '#34D399',
+            },
+            {
+              label: 'المساحة المزروعة (كم²)',
+              value: this.normalizeValue(
+                this.governoratesRes.cultivated_area_km2
+              ),
+              color: '#FBBF24',
+            },
+          ];
+
+          centerId ? (this.localUnitsData = res.barChartData) : [];
+        }
+      });
+  }
+  // استرجاع إحصائيات الفئات العمرية
+  getAgeGroupStatistics(centerId?: number, localUnitId?: number): void {
+    this.chartDataService
+      .getAgeGroupStatistics(centerId, localUnitId)
+      .subscribe((res: any) => {
+        if (!res) return;
+
+        const centers = centerId ? res.barChartData : res.allCentersData;
+
+        const g = res.governoratesData?.[0];
+        const governorateGroups = g?.detailed_age_groups || [];
+
+        const refGroups =
+          governorateGroups.length > 0
+            ? governorateGroups
+            : centers[0]?.detailed_age_groups || [];
+
+        const ageRanges = refGroups.map((g: any) => g.age_range);
+        this.chartLabels.set(ageRanges);
+
+        const series = centers.map((center: any) => {
+          const data = ageRanges.map((range: string) => {
+            const found = center.detailed_age_groups.find(
+              (item: any) => item.age_range === range
+            );
+            return this.normalizeValue(found?.count ?? 0);
+          });
+
+          return {
+            name: center.name,
+            data,
+            color: undefined,
+          };
+        });
+
+        this.chartSeries.set(series);
+
+        this.governoratesRes = refGroups.map((g: any) => ({
+          label: g.age_range,
+          value: this.normalizeValue(g.count),
+          color: undefined,
+        }));
+
+        this.allCentersData = centers;
+        centerId ? (this.localUnitsData = res.barChartData) : [];
+      });
+  }
+
+  // استرجاع إحصائيات التعليم
+  getEducationStatistics(centerId?: number, localUnitId?: number): void {
+    this.chartDataService
+      .getEducationStatistics(centerId, localUnitId)
+      .subscribe((res: any) => {
+        if (!res) return;
+
+        const centers = centerId ? res.barChartData : res.allCentersData;
+
+        const g = res.governoratesData?.[0];
+        const governorateGroups = g?.detailed_education_levels || [];
+
+        const refGroups =
+          governorateGroups.length > 0
+            ? governorateGroups
+            : centers[0]?.detailed_education_levels || [];
+
+        const educationLevels = refGroups.map((g: any) => g.level);
+        this.chartLabels.set(educationLevels);
+
+        const series = centers.map((center: any) => {
+          const data = educationLevels.map((level: string) => {
+            const found = center.detailed_education_levels.find(
+              (item: any) => item.level === level
+            );
+            return this.normalizeValue(found?.count ?? 0);
+          });
+
+          return {
+            name: center.name,
+            data,
+            color: undefined,
+          };
+        });
+
+        this.chartSeries.set(series);
+
+        this.governoratesRes = refGroups.map((g: any) => ({
+          label: g.level,
+          value: this.normalizeValue(g.count),
+          color: undefined,
+        }));
+        this.allCentersData = res.allCentersData;
+        this.localUnitsData = centerId ? res.barChartData : [];
       });
   }
 
