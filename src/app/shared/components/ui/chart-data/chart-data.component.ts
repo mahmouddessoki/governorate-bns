@@ -17,6 +17,7 @@ echarts.use([PieChart, GridComponent, CanvasRenderer]); // ✅ تحديث الا
 })
 export class ChartDataComponent {
   // ---- INPUT -------------------------------------------------
+
   beniSuefData = input<any[]>([]);
   chartData = input<
     { label: string; value: number | string; color?: string }[]
@@ -37,82 +38,6 @@ export class ChartDataComponent {
     });
   }
 
-  // ---- UPDATE CHART -------------------------------------------
-  private updateChart(data: any[] | undefined) {
-    const option: EChartsOption = {
-      backgroundColor: 'transparent',
-      title: {
-        text: '',
-        left: 'center',
-        top: 10,
-        textStyle: { fontSize: 16, fontWeight: 'bold', color: '#fff' },
-      },
-      tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
-      legend: {
-        orient: 'horizontal',
-        bottom: 10,
-        textStyle: { color: '#ccc' },
-      },
-      series: [] as any[],
-    };
-
-    // --- حالة: لا توجد بيانات ---
-    if (!data || data.length === 0) {
-      option.title = {
-        text: 'لا توجد بيانات',
-        left: 'center',
-        top: 'middle',
-        textStyle: { color: '#fff', fontSize: 18 },
-      };
-      option.series = [];
-      this.chartOption.set(option);
-      return;
-    }
-
-    // --- حالة: بيانات غير صالحة ---
-    const item = data[0];
-    const male = this.safeParse(item?.male);
-    const female = this.safeParse(item?.female);
-    console.log('Parsed Male:', male, 'Parsed Female:', female);
-
-    if (male === null || female === null) {
-      option.title = {
-        text: 'بيانات غير صالحة',
-        left: 'center',
-        top: 'middle',
-        textStyle: { color: '#fff', fontSize: 18 },
-      };
-      option.series = [];
-      this.chartOption.set(option);
-      return;
-    }
-
-    // --- حالة: بيانات صالحة ---
-    option.series = [
-      {
-        name: 'الجنس',
-        type: 'pie',
-        radius: ['50%', '75%'],
-        avoidLabelOverlap: false,
-        label: {
-          show: true,
-          position: 'outside',
-          color: '#fff',
-          fontSize: 14,
-          formatter: (p: any) => `${p.value} (${p.percent}%)`,
-        },
-        labelLine: { show: true, smooth: true },
-        data: [
-          { value: male, name: 'ذكور', itemStyle: { color: '#8DDCFE' } },
-          { value: female, name: 'إناث', itemStyle: { color: '#F3B0F9' } },
-        ],
-        emphasis: { scale: true, scaleSize: 10 },
-      },
-    ];
-
-    this.chartOption.set(option);
-  }
-
   private updateCharts(data: any[] | undefined) {
     const option: EChartsOption = {
       backgroundColor: 'transparent',
@@ -125,7 +50,7 @@ export class ChartDataComponent {
       tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
       legend: {
         orient: 'horizontal',
-        bottom: 10,
+        bottom: -5,
         textStyle: { color: '#ccc' },
       },
       series: [],
@@ -147,8 +72,10 @@ export class ChartDataComponent {
         name: 'data',
         type: 'pie',
         radius: ['50%', '75%'],
+
         label: {
           color: '#fff',
+
           formatter: '{b}: {c} ({d}%)',
         },
         data: data.map((item) => ({

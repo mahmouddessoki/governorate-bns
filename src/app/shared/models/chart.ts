@@ -27,6 +27,7 @@ export interface GovernorateStats {
     divorced?: string;
     widowed?: string;
   };
+
   families_count?: string;
 }
 

@@ -114,6 +114,73 @@ export class ChartDataService {
         })
       );
   }
+  getAreaBuildingsStatistics(
+    centerId?: number,
+    localUnitId?: number
+  ): Observable<any> {
+    let params = new HttpParams();
+    if (centerId) {
+      params = params.set('center_id', centerId);
+    }
+    if (localUnitId) {
+      params = params.set('local_unit_id', localUnitId);
+    }
+    return this.http
+      .get(`${this.apiUrl}area-buildings-statistics`, { params })
+      .pipe(
+        map((response) => {
+          response = this.responseAdapterService.adapt(response as any);
+          return response;
+        }),
+        tap((data) => {
+          console.log('Area Buildings Statistics Data:', data);
+        })
+      );
+  }
+
+  getAgeGroupStatistics(
+    centerId?: number,
+    localUnitId?: number
+  ): Observable<any> {
+    let params = new HttpParams();
+    if (centerId) {
+      params = params.set('center_id', centerId);
+    }
+    if (localUnitId) {
+      params = params.set('local_unit_id', localUnitId);
+    }
+    return this.http.get(`${this.apiUrl}ageGroupStatistics`, { params }).pipe(
+      map((response) => {
+        response = this.responseAdapterService.adapt(response as any);
+        return response;
+      }),
+      tap((data) => {
+        console.log('Age Group Statistics Data:', data);
+      })
+    );
+  }
+
+  getEducationStatistics(
+    centerId?: number,
+    localUnitId?: number
+  ): Observable<any> {
+    let params = new HttpParams();
+    if (centerId) {
+      params = params.set('center_id', centerId);
+    }
+    if (localUnitId) {
+      params = params.set('local_unit_id', localUnitId);
+    }
+    return this.http.get(`${this.apiUrl}education-Statistics`, { params }).pipe(
+      map((response) => {
+        response = this.responseAdapterService.adapt(response as any);
+        return response;
+      }),
+      tap((data) => {
+        console.log('Education Statistics Data:', data);
+      })
+    );
+  }
 
   getCenters(): Observable<any> {
     return this.http.get(`${this.apiUrl}centers`).pipe(
