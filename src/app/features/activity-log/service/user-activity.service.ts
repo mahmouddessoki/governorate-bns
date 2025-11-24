@@ -11,17 +11,9 @@ export class UserActivityService {
 
   constructor(private http: HttpClient) {}
 
-  getUserActivities(per_page: number, page: number): Observable<any> {
-    const params = new HttpParams();
-    params.set('per_page', per_page);
-    params.set('page', page);
-
+  getUserActivities(page: number): Observable<any> {
     return this.http
-      .get(`${this.apiUrl}user-activity/activities?`, { params })
-      .pipe(
-        tap((response) => {
-          console.log('User activities fetched:', response);
-        })
-      );
+      .get(`${this.apiUrl}user-activity/activities?page=${page}`)
+
   }
 }

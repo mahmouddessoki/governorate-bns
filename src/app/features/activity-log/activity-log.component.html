@@ -3,4 +3,10 @@
         سجل النشاط
     </section-header>
     <app-table [tableData]="tableData()" [tableHead]="tableHeader()"></app-table>
+
+    <div class="flex justify-center items-center py-3">
+      @if (total()) {
+      <app-pagination [totalPages]="total()" (currentPageChange)="getTablePagData($event)" />
+      }
+    </div>
 </section>

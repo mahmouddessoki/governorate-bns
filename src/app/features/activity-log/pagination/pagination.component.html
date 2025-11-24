@@ -1,0 +1,27 @@
+<nav aria-label="Page navigation example">
+  <ul class="flex -space-x-px text-sm">
+    <li>
+      <a (click)="getPrev($event)" class="pag-link">
+        <span class="sr-only">Previous</span>
+        <svg class="w-4 h-4 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7"/></svg>
+      </a>
+    </li>
+    @for (pageLink of makeArr(totalPages()); track $index) {
+
+      <li>
+        <a [id]="$index" [class]="{
+          'active': $index+1 == currentPage()
+        }" (click)="setCurrentPage($event,$index+1)" class="pag-link cursor-pointer">{{$index + 1}}</a>
+      </li>
+    }
+
+    <li>
+      <a (click)="getNext($event)" class="pag-link">
+        <span class="sr-only">Next</span>
+        <svg class="w-4 h-4 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/></svg>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+
