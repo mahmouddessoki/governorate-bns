@@ -27,7 +27,7 @@ export class SidebarComponent {
     },
     {
       title: 'المحافظة',
-      router: '/data',
+      router: '/governorates',
 
       img: '/images/icons/ticket.svg',
     },

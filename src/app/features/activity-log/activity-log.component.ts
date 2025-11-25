@@ -27,29 +27,40 @@ export class ActivityLogComponent implements OnInit {
     'device',
     'status',
   ]);
+
   tableData = signal<Table[]>([]);
+  resolvedData = input<any>();
 
   ngOnInit(): void {
-    this.getData(this.pageNumber());
+    this.getFormattedData(this.resolvedData()!.data)
+    this.total.set(this.resolvedData()!.pagination.last_page);
   }
 
   getData(pageNum: number) {
-    this.userActivityService
-      .getUserActivities(pageNum)
-      .subscribe((res) => {
-        this.total.set(res.pagination.last_page);
-        const formattedData = res.data.map((item: any) => ({
-          ...item,
-          created_at: this.SharedServiceService.formatDateString(
-            item['created_at']
-          ),
-        }));
-        this.tableData.set(formattedData);
-      });
+    this.userActivityService.getUserActivities(pageNum).subscribe((res) => {
+      const formattedData = res.data.map((item: any) => ({
+        ...item,
+        created_at: this.SharedServiceService.formatDateString(
+          item['created_at']
+        ),
+      }));
+      this.tableData.set(formattedData);
+    });
   }
 
-  getTablePagData(p:number) {
+
+  getFormattedData(data:Table[]) {
+    const formattedData = data.map((item: any) => ({
+      ...item,
+      created_at: this.SharedServiceService.formatDateString(
+        item['created_at']
+      ),
+    }));
+    this.tableData.set(formattedData);
+  }
+
+  getTablePagData(p: number) {
     console.log(p);
-    this.getData(p)
+    this.getData(p);
   }
 }

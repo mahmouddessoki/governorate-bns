@@ -21,6 +21,7 @@ import { getVillagesResolver } from './features/villages/resolver/get-villages.r
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
 import { SubSectorComponent } from './features/sub-sector/sub-sector.component';
 import { getSUbSectorsResolver } from './features/sub-sector/resolver/get-sub-sectors.resolver';
+import { activityResolver } from './features/activity-log/resolver/activity.resolver';
 
 export const routes: Routes = [
   {
@@ -56,6 +57,9 @@ export const routes: Routes = [
         path: 'activity',
         component: ActivityLogComponent,
         title: 'سجل النشاط',
+        resolve: {
+          resolvedData:activityResolver
+        },
       },
       {
         path: 'sectors',
